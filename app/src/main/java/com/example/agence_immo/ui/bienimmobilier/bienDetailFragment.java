@@ -1,20 +1,17 @@
 package com.example.agence_immo.ui.bienimmobilier;
 
-import android.app.BroadcastOptions;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.fragment.NavHostFragment;
-import androidx.navigation.fragment.navArgs;
-
+import androidx.navigation.Navigation;
 
 import com.example.agence_immo.R;
 import com.example.agence_immo.data.model.BienImmobilier;
@@ -23,37 +20,33 @@ import com.example.agence_immo.viewmodel.BienViewModel;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class BienDetailFragment extends Fragment {
+public class bienDetailFragment extends Fragment {
 
-    private BienViewModel vm;
+    private BienViewModel viewModel;
     private BienImmobilier bien;
-
-    private final BienDetailFragmentArgs args = BienDetailFragmentArgs.fromBundle(new Bundle());
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_bien_detail, container, false);
     }
 
     @Override
-    public void onViewCreated(@NonNull View v, @Nullable Bundle b) {
-        super.onViewCreated(v, b);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        vm = new ViewModelProvider(requireActivity()).get(BienViewModel.class);
+        viewModel = new ViewModelProvider(requireActivity()).get(BienViewModel.class);
 
         String bienId = BienDetailFragmentArgs.fromBundle(getArguments()).getBienId();
-        bien = vm.getBien(bienId);
+        bien = viewModel.getBien(bienId);
 
-        TextView tvDetail = v.findViewById(R.id.tvBienDetail);
+        TextView tvDetail = view.findViewById(R.id.tvBienDetail);
         tvDetail.setText(bien.toString());
 
-        Button btnAddPiece = v.findViewById(R.id.btnAddPiece);
-        btnAddPiece.setOnClickListener(button ->
-                NavHostFragment.findNavController(this)
-                        .navigate(BienDetailFragmentDirections
-                                .actionBienDetailToBienAddPiece(bien.getId())));
+        Button btnAddPiece = view.findViewById(R.id.btnAddPiece);
+        btnAddPiece.setOnClickListener(v ->
+                Navigation.findNavController(v)
+                        .navigate(BienDetailFragmentDirections.actionBienDetailFragmentToBienAddPiece(bien.getId()))
+        );
     }
 }
