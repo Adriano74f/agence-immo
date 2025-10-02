@@ -2,6 +2,12 @@ package com.example.agence_immo;
 
 import static org.junit.Assert.*;
 
+import com.example.agence_immo.data.model.BienImmobilier;
+import com.example.agence_immo.data.model.PieceCirculaire;
+import com.example.agence_immo.data.model.PieceQuadrilatere;
+import com.example.agence_immo.data.model.PieceTriangulaire;
+import com.example.agence_immo.data.model.TypePiece;
+
 import org.junit.Test;
 
 public class BienImmobilierTest {
