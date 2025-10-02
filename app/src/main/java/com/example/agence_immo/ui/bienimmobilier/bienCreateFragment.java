@@ -23,7 +23,7 @@ import com.example.agence_immo.viewmodel.BienViewModel;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class BienCreateFragment extends Fragment {
+public class bienCreateFragment extends Fragment {
 
     private BienViewModel vm;
 
