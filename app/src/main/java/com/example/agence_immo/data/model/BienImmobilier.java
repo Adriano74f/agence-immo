@@ -1,5 +1,6 @@
 package com.example.agence_immo.data.model;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.UUID;
 
