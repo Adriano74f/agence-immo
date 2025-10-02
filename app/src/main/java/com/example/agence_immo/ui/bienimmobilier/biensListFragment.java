@@ -4,51 +4,66 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 
 import com.example.agence_immo.R;
 import com.example.agence_immo.data.model.BienImmobilier;
 import com.example.agence_immo.viewmodel.BienViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import dagger.hilt.android.AndroidEntryPoint;
+
 import java.util.List;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
 @AndroidEntryPoint
-public class BienListFragment extends Fragment {
+public class biensListFragment extends Fragment {
 
-    private final BienViewModel viewModel by viewModels(); // Hilt fournit automatiquement
+    private BienViewModel viewModel;
+    private LinearLayout containerBiens;
 
-    private RecyclerView recyclerView;
-    private BienAdapter adapter;
-
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_bien_list, container, false);
-        recyclerView = root.findViewById(R.id.recyclerViewBiens);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View root = inflater.inflate(R.layout.fragment_biens_list, container, false);
+        containerBiens = root.findViewById(R.id.containerBiens);
         FloatingActionButton fab = root.findViewById(R.id.fabAddBien);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new BienAdapter();
-        recyclerView.setAdapter(adapter);
-
-        // Observe les biens
-        viewModel.getBiens().observe(getViewLifecycleOwner(), new Observer<List<BienImmobilier>>() {
-            @Override
-            public void onChanged(List<BienImmobilier> biens) {
-                adapter.setBiens(biens);
-            }
-        });
-
-        // Click sur FAB -> créer bien
-        fab.setOnClickListener(v -> Navigation.findNavController(v)
-                .navigate(R.id.action_bienListFragment_to_bienCreateFragment));
+        fab.setOnClickListener(v ->
+                Navigation.findNavController(v).navigate(R.id.action_bienListFragment_to_bienCreateFragment)
+        );
 
         return root;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        viewModel = new ViewModelProvider(requireActivity()).get(BienViewModel.class);
+
+        viewModel.getBiens().observe(getViewLifecycleOwner(), biens -> updateUI(biens));
+    }
+
+    private void updateUI(List<BienImmobilier> biens) {
+        containerBiens.removeAllViews();
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+
+        for (BienImmobilier bien : biens) {
+            TextView tv = new TextView(getContext());
+            tv.setText(bien.toString());
+            tv.setPadding(16,16,16,16);
+            tv.setOnClickListener(v -> {
+                bienListFragmentDirections.ActionBienListFragmentToBienDetailFragment action =
+                        bienListFragmentDirections.actionBienListFragmentToBienDetailFragment(bien.getId());
+                Navigation.findNavController(v).navigate(action);
+            });
+            containerBiens.addView(tv);
+        }
     }
 }
