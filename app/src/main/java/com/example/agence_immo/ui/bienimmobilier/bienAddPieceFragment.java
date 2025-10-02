@@ -104,7 +104,7 @@ public class bienAddPieceFragment extends Fragment {
             public void onNothingSelected(android.widget.AdapterView<?> parent) { }
         });
 
-        String bienId = BienAddPieceFragmentArgs.fromBundle(getArguments()).getBienId();
+        /*  String bienId.fromBundle(getArguments()).getBienId();
 
         btnAdd.setOnClickListener(v -> {
             String forme = spinnerForme.getSelectedItem().toString();
@@ -142,6 +142,6 @@ public class bienAddPieceFragment extends Fragment {
                 viewModel.addPiece(bienId, piece);
                 Navigation.findNavController(v).navigateUp();
             }
-        });
+        });*/
     }
 }

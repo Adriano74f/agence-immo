@@ -59,8 +59,8 @@ public class biensListFragment extends Fragment {
             tv.setText(bien.toString());
             tv.setPadding(16,16,16,16);
             tv.setOnClickListener(v -> {
-                bienListFragmentDirections.ActionBienListFragmentToBienDetailFragment action =
-                        bienListFragmentDirections.actionBienListFragmentToBienDetailFragment(bien.getId());
+                biensListFragmentDirections.ActionBienListFragmentToBienDetailFragment action =
+                        biensListFragmentDirections.actionBienListFragmentToBienDetailFragment(bien.getId());
                 Navigation.findNavController(v).navigate(action);
             });
             containerBiens.addView(tv);

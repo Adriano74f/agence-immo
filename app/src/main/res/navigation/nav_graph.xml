@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/bienListFragment"
-        android:name="com.example.agence_immo.ui.bienimmobilier.bienListFragment"
+        android:name="com.example.agence_immo.ui.bienimmobilier.biensListFragment"
         android:label="Liste des Biens" >
         <action
             android:id="@+id/action_bienListFragment_to_bienCreateFragment"
@@ -36,7 +36,7 @@
 
     <fragment
         android:id="@+id/bienAddPieceFragment"
-        android:name="com.example.agence_immo.ui.bienimmobilier.BienAddPieceFragment"
+        android:name="com.example.agence_immo.ui.bienimmobilier.bienAddPieceFragment"
         android:label="Ajouter Pièce" >
         <argument
             android:name="bienId"

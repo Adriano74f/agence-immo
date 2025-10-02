@@ -20,7 +20,7 @@ import com.example.agence_immo.viewmodel.BienViewModel;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class bienDetailFragment extends Fragment {
+public class BienDetailFragment extends Fragment {
 
     private BienViewModel viewModel;
     private BienImmobilier bien;
@@ -35,7 +35,7 @@ public class bienDetailFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        viewModel = new ViewModelProvider(requireActivity()).get(BienViewModel.class);
+        /*viewModel = new ViewModelProvider(requireActivity()).get(BienViewModel.class);
 
         String bienId = BienDetailFragmentArgs.fromBundle(getArguments()).getBienId();
         bien = viewModel.getBien(bienId);
@@ -47,6 +47,6 @@ public class bienDetailFragment extends Fragment {
         btnAddPiece.setOnClickListener(v ->
                 Navigation.findNavController(v)
                         .navigate(BienDetailFragmentDirections.actionBienDetailFragmentToBienAddPiece(bien.getId()))
-        );
+        );*/
     }
 }
