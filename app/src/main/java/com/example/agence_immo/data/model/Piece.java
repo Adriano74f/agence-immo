@@ -1,5 +1,9 @@
 package com.example.agence_immo.data.model;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.util.Locale;
+
 public abstract class Piece {
     private TypePiece typePiece;
     private String niveau;
@@ -31,7 +35,7 @@ public abstract class Piece {
     public abstract double surface();
     @Override
     public String toString() {
-// Format demandé : <typePiece> surface : <surface()> m2 \n
-        return typePiece.toString() + " surface : " + surface() + " m2\n";
+        DecimalFormat numberFormat = new DecimalFormat("#.00", new DecimalFormatSymbols(Locale.FRANCE));
+        return "- " + typePiece.toString() + " surface : " + numberFormat.format(surface()) + " m2\n";
     }
 }
