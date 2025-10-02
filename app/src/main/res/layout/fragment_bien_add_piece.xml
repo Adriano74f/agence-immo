@@ -1,14 +1,58 @@
-<?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="16dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.bienimmobilier.bienAddPieceFragment">
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <Spinner
+        android:id="@+id/spinnerForme"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content" />
 
-</FrameLayout>
+    <Spinner
+        android:id="@+id/spinnerTypePiece"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/etNiveau"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Niveau"/>
+
+    <EditText
+        android:id="@+id/etLongueur"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Longueur (m)"/>
+
+    <EditText
+        android:id="@+id/etLargeur"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Largeur (m)"/>
+
+    <EditText
+        android:id="@+id/etRayon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Rayon (m)"/>
+
+    <EditText
+        android:id="@+id/etBase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Base (m)"/>
+
+    <EditText
+        android:id="@+id/etHauteur"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Hauteur (m)"/>
+
+    <Button
+        android:id="@+id/btnAddPiece"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ajouter Pièce"/>
+</LinearLayout>
