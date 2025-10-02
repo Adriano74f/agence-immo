@@ -1,66 +1,59 @@
 package com.example.agence_immo.ui.bienimmobilier;
 
+import android.app.BroadcastOptions;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Button;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.fragment.navArgs;
+
 
 import com.example.agence_immo.R;
+import com.example.agence_immo.data.model.BienImmobilier;
+import com.example.agence_immo.viewmodel.BienViewModel;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link bienDetailFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class bienDetailFragment extends Fragment {
+import dagger.hilt.android.AndroidEntryPoint;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+@AndroidEntryPoint
+public class BienDetailFragment extends Fragment {
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private BienViewModel vm;
+    private BienImmobilier bien;
 
-    public bienDetailFragment() {
-        // Required empty public constructor
-    }
+    private final BienDetailFragmentArgs args = BienDetailFragmentArgs.fromBundle(new Bundle());
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment bienDetailFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static bienDetailFragment newInstance(String param1, String param2) {
-        bienDetailFragment fragment = new bienDetailFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_bien_detail, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View v, @Nullable Bundle b) {
+        super.onViewCreated(v, b);
+
+        vm = new ViewModelProvider(requireActivity()).get(BienViewModel.class);
+
+        String bienId = BienDetailFragmentArgs.fromBundle(getArguments()).getBienId();
+        bien = vm.getBien(bienId);
+
+        TextView tvDetail = v.findViewById(R.id.tvBienDetail);
+        tvDetail.setText(bien.toString());
+
+        Button btnAddPiece = v.findViewById(R.id.btnAddPiece);
+        btnAddPiece.setOnClickListener(button ->
+                NavHostFragment.findNavController(this)
+                        .navigate(BienDetailFragmentDirections
+                                .actionBienDetailToBienAddPiece(bien.getId())));
     }
 }
