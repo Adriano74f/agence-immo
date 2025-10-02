@@ -1,6 +1,7 @@
 package com.example.agence_immo.data.model;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,6 +22,7 @@ public class BienImmobilier {
         this.ville = ville;
         this.codePostal = codePostal;
         this.id = UUID.randomUUID().toString();
+        this.pieces = new ArrayList<>();
     }
 
     public String getId() {
@@ -67,11 +69,12 @@ public class BienImmobilier {
         return sum;
     }
 
-
-    private String toStringPieces() {
-        StringBuilder sb = new StringBuilder();
-        for (Piece p : pieces) sb.append(p.toString());
-        return sb.toString();
+    public String toStringPieces() {
+        String resultat = "";
+        for (Piece unePiece : pieces) {
+            resultat += unePiece.toString();
+        }
+        return resultat;
     }
 
 
@@ -86,4 +89,4 @@ public class BienImmobilier {
                 + " m2 et une surface non habitable de : " + numberFormat.format(surfaceNonHabitable()) + " m2.";
     }
 }
-}
+
